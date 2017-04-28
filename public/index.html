@@ -1,0 +1,89 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="wol">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta lang="eu">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>WOL/PING</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="css/datatables.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<style>
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+	</style>
+
+
+	<script src="js/libs/datatables/datatables.min.js"></script><!-- load angular -->
+	<script src="js/libs/angular/angular.min.js"></script><!-- load angular -->
+	<script src="js/libs/angular/angular-route.min.js"></script><!-- load angular -->
+	<script src="js/libs/angular/angular-animate.min.js"></script><!-- load angular -->
+	<script src="js/libs/angular/angular-resource.min.js"></script><!-- load angular -->
+	<script src="js/libs/datatables/angular-datatables.min.js"></script>
+	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
+	<script src="js/core.js"></script> <!-- load our main application -->
+
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="mainController as showCase">
+	<div class="container">
+
+		<div class="jumbotron text-center">
+			<h1>WOL <span class="label label-info">{{ pcs.length }}</span></h1>
+		</div>
+
+		<div id="pc-list" class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+
+				<p class="text-center" ng-show="loading">
+					<span class="fa fa-spinner fa-spin fa-3x"></span>
+				</p>
+            </div>
+            <div class="table table-bordered table-responsive table-condensed table-hover">
+                <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+            </div>
+
+
+		</div>
+
+
+		<div class="text-center text-muted">
+			<p><a href="http://www.pasaia.eus">Pasiako Udala</a>.</p>
+		</div>
+
+	</div>
+
+    <script>
+        if (typeof Object.create != 'function') {
+            Object.create = (function(undefined) {
+                var Temp = function() {};
+                return function (prototype, propertiesObject) {
+                    if(prototype !== Object(prototype)) {
+                        throw TypeError(
+                            'Argument must be an object, or null'
+                        );
+                    }
+                    Temp.prototype = prototype || {};
+                    var result = new Temp();
+                    Temp.prototype = null;
+                    if (propertiesObject !== undefined) {
+                        Object.defineProperties(result, propertiesObject);
+                    }
+
+                    // to imitate the case of Object.create(null)
+                    if(prototype === null) {
+                        result.__proto__ = null;
+                    }
+                    return result;
+                };
+            })();
+        }
+    </script>
+</body>
+</html>

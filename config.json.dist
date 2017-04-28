@@ -1,0 +1,6 @@
+{
+  "HOST": "MYSQQL_HOST",
+  "USER": "MYSQQL_USER",
+  "PASSWD" : "MYSQQL_PASSWD",
+  "DB": "MYSQQL_DB"
+}
