@@ -1,26 +1,43 @@
-angular.module('wol', ['ngRoute','datatables', 'ngResource'])
+angular.module('wol', ['ngRoute','ngResource'])
 
 
-.controller('mainController', function (DTOptionsBuilder, DTColumnBuilder, $http, $q) {
-    vm = this;
-    vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
-        var defer = $q.defer();
-        $http.get('/api/pcs').then(function(result) {
+.controller('mainController', function ($scope, $http) {
+    $scope.arrAlive = [];
+    $scope.arrDead = [];
+    $scope.pcs=[];
+    $http.get('/api/pcs').then(function (result) {
+        $scope.pcs = result.data;
+    });
 
-            // console.log(result);
 
-            defer.resolve(result.data);
+    $scope.ping = function (ip) {
+
+        $http.get("/ping/"+ip).then(function(resp, status) {
+            var alive = resp.data.alive;
+            console.log("Erantzuna: " + alive );
+
+            if ( alive === true ) {
+                $scope.arrAlive.push(ip);
+            } else if ( alive === false ) {
+                $scope.arrDead.push(ip);
+            }
+
         });
-        return defer.promise;
-    }).withPaginationType('full_numbers');
 
-    vm.dtColumns = [
-        DTColumnBuilder.newColumn('STATUS').withTitle('Status'),
-        DTColumnBuilder.newColumn('NAME').withTitle('Pc'),
-        DTColumnBuilder.newColumn('USERID').withTitle('User'),
-        DTColumnBuilder.newColumn('luzapena').withTitle('Luzapena'),
-        DTColumnBuilder.newColumn('saila').withTitle('saila'),
-        DTColumnBuilder.newColumn('IPADDRESS').withTitle('IP'),
-        DTColumnBuilder.newColumn('MACADDR').withTitle('MAC')
-    ];
+    };
+
+    $scope.isInAliveArray =  function(ip){
+        return $.inArray( ip, $scope.arrAlive) > -1;
+    };
+
+
+    // pc.IPADDRESS == idSelectedVote
+
+    $scope.idSelectedVote = null;
+    $scope.setSelected = function(idSelectedVote) {
+        $scope.idSelectedVote = idSelectedVote;
+        console.log(idSelectedVote);
+    }
+
+
 });

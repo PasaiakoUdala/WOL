@@ -6,6 +6,20 @@ module.exports = function (app) {
         res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
 
+
+    app.get('/ping/:ip', function (req, res, next) {
+        var ping = require('ping');
+        var ip = req.params.ip;
+        console.log("Ping egiten " + ip + " ari...");
+        ping.sys.probe(ip, function(isAlive){
+            var msg = isAlive ? 'host ' + ip + ' is alive' : 'host ' + ip + ' is dead';
+            console.log(msg);
+            var resp = {};
+            resp.alive = isAlive;
+            res.json(resp);
+        });
+    });
+
     app.get('/api/pcs', function (req, res) {
         var mysql = require('mysql');
         var options = require('./options');
@@ -20,7 +34,13 @@ module.exports = function (app) {
             if (err) throw err;
         });
 
-        var sql = "SELECT * FROM hardware LEFT JOIN networks on hardware.ID=networks.HARDWARE_ID LEFT JOIN accountinfo on hardware.ID=accountinfo.HARDWARE_ID";
+        var sql = "SELECT * " +
+            "FROM hardware " +
+            "LEFT JOIN networks " +
+            "   on hardware.ID=networks.HARDWARE_ID " +
+            "LEFT JOIN accountinfo " +
+            "   on hardware.ID=accountinfo.HARDWARE_ID "
+
         conn.query(sql,function (err, rows, fields) {
             if (err) throw err;
             res.json(rows);

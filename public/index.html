@@ -13,6 +13,7 @@
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css"><!-- load bootstrap -->
 	<link rel="stylesheet" href="css/datatables.min.css">
+	<link rel="stylesheet" href="css/datatables.bootstrap.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<style>
 		html 					{ overflow-y:scroll; }
@@ -21,17 +22,17 @@
 
 
 	<script src="js/libs/datatables/datatables.min.js"></script><!-- load angular -->
+	<script src="js/libs/datatables/dataTables.colReorder.min.js"></script><!-- load angular -->
+	<script src="js/libs/datatables/dataTables.select.min.js"></script><!-- load angular -->
 	<script src="js/libs/angular/angular.min.js"></script><!-- load angular -->
 	<script src="js/libs/angular/angular-route.min.js"></script><!-- load angular -->
 	<script src="js/libs/angular/angular-animate.min.js"></script><!-- load angular -->
 	<script src="js/libs/angular/angular-resource.min.js"></script><!-- load angular -->
-	<script src="js/libs/datatables/angular-datatables.min.js"></script>
-	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
 	<script src="js/core.js"></script> <!-- load our main application -->
 
 </head>
 <!-- SET THE CONTROLLER -->
-<body ng-controller="mainController as showCase">
+<body ng-controller="mainController">
 	<div class="container">
 
 		<div class="jumbotron text-center">
@@ -45,9 +46,39 @@
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
 				</p>
             </div>
-            <div class="table table-bordered table-responsive table-condensed table-hover">
-                <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
-            </div>
+<!--<ul>-->
+    <!--<li ng-repeat="pc in pcs">{{ pc.NAME }}</li>-->
+<!--</ul>-->
+            <table class="table table-bordered table-responsive table-condensed table-hover">
+                <thead>
+					<th>Pc</th>
+					<th>User</th>
+					<th>Luzapena</th>
+					<th>Saila</th>
+					<th>IP</th>
+					<th>Mac</th>
+					<th></th>
+				</thead>
+				<tbody>
+
+                <!--<tr ng-repeat="vote in votes" ng-click="setSelected(vote.id)" ng-class="{selected : vote.id === idSelectedVote}">-->
+				<tr ng-repeat="pc in pcs" ng-class="{ success : isInAliveArray(pc.IPADDRESS) }" data-ip="{{pc.IPADDRESS}}">
+
+					<td>{{ pc.NAME }}</td>
+					<td>{{ pc.USERID }}</td>
+					<td>{{ pc.luzapena }}</td>
+					<td>{{ pc.saila }}</td>
+					<td>{{ pc.IPADDRESS }}</td>
+					<td>{{ pc.MACADDR }}</td>
+					<td>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default btn" ng-click="ping(pc.IPADDRESS);"><i class="fa fa-volume-control-phone"> Ping</i></button>
+							<button type="button" class="btn btn-default btn" ng-click="wol(pc);"><i class="fa fa-bell"> Wol</i></button>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+            </table>
 
 
 		</div>

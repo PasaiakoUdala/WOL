@@ -2,7 +2,6 @@
 var express = require('express');
 var app = express(); 						// create our app w/ express
 var port = process.env.PORT || 3000; 				// set the port
-var database = require('./config/database'); 			// load the database config
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
