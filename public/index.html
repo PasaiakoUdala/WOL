@@ -62,7 +62,7 @@
 				<tbody>
 
                 <!--<tr ng-repeat="vote in votes" ng-click="setSelected(vote.id)" ng-class="{selected : vote.id === idSelectedVote}">-->
-				<tr ng-repeat="pc in pcs" ng-class="{ success : isInAliveArray(pc.IPADDRESS) }" data-ip="{{pc.IPADDRESS}}">
+				<tr ng-repeat="pc in pcs" ng-class="{ success : isInAliveArray(pc.IPADDRESS), danger: isInDeadArray(pc.IPADDRESS) }" data-ip="{{pc.IPADDRESS}}">
 
 					<td>{{ pc.NAME }}</td>
 					<td>{{ pc.USERID }}</td>

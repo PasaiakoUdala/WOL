@@ -17,8 +17,17 @@ angular.module('wol', ['ngRoute','ngResource'])
             console.log("Erantzuna: " + alive );
 
             if ( alive === true ) {
+                var index1 = $scope.arrDead.indexOf(ip);
+                if ( index1 !== -1) {
+                    $scope.arrDead.splice(index1, 1);
+                }
                 $scope.arrAlive.push(ip);
+
             } else if ( alive === false ) {
+                var index2 = $scope.arrAlive.indexOf(ip);
+                if ( index2 !== -1) {
+                    $scope.arrAlive.splice(index2, 1);
+                }
                 $scope.arrDead.push(ip);
             }
 
@@ -28,6 +37,9 @@ angular.module('wol', ['ngRoute','ngResource'])
 
     $scope.isInAliveArray =  function(ip){
         return $.inArray( ip, $scope.arrAlive) > -1;
+    };
+    $scope.isInDeadArray =  function(ip){
+        return $.inArray( ip, $scope.arrDead) > -1;
     };
 
 
