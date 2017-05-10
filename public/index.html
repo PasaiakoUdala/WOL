@@ -46,10 +46,8 @@
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
 				</p>
             </div>
-<!--<ul>-->
-    <!--<li ng-repeat="pc in pcs">{{ pc.NAME }}</li>-->
-<!--</ul>-->
-            <table class="table table-bordered table-responsive table-condensed table-hover">
+
+            <table id="pcsTable" class="table table-bordered table-responsive table-condensed table-hover">
                 <thead>
 					<th>Pc</th>
 					<th>User</th>
@@ -61,9 +59,7 @@
 				</thead>
 				<tbody>
 
-                <!--<tr ng-repeat="vote in votes" ng-click="setSelected(vote.id)" ng-class="{selected : vote.id === idSelectedVote}">-->
 				<tr ng-repeat="pc in pcs" ng-class="{ success : isInAliveArray(pc.IPADDRESS), danger: isInDeadArray(pc.IPADDRESS) }" data-ip="{{pc.IPADDRESS}}">
-
 					<td>{{ pc.NAME }}</td>
 					<td>{{ pc.USERID }}</td>
 					<td>{{ pc.luzapena }}</td>
@@ -73,7 +69,7 @@
 					<td>
 						<div class="btn-group">
 							<button type="button" class="btn btn-default btn" ng-click="ping(pc.IPADDRESS);"><i class="fa fa-volume-control-phone"> Ping</i></button>
-							<button type="button" class="btn btn-default btn" ng-click="wol(pc);"><i class="fa fa-bell"> Wol</i></button>
+							<button type="button" class="btn btn-default btn" ng-click="wol(pc.MACADDR);"><i class="fa fa-bell"> Wol</i></button>
 						</div>
 					</td>
 				</tr>
@@ -115,6 +111,9 @@
                 };
             })();
         }
+//        $(document).ready(function() {
+//            $('#pcsTable').DataTable();
+//        } );
     </script>
 </body>
 </html>

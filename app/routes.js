@@ -20,6 +20,22 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/wol/:mac', function (req, res, next) {
+        var wol = require('node-wol');
+        var mac = req.params.mac;
+        var resp = {};
+        resp.wol = true;
+
+        wol.wake(mac, function(error) {
+            if(error) {
+               resp.wol = false;
+            }
+        });
+
+        res.json(resp);
+
+    });
+
     app.get('/api/pcs', function (req, res) {
         var mysql = require('mysql');
         var options = require('./options');

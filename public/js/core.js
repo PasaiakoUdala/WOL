@@ -14,7 +14,7 @@ angular.module('wol', ['ngRoute','ngResource'])
 
         $http.get("/ping/"+ip).then(function(resp, status) {
             var alive = resp.data.alive;
-            console.log("Erantzuna: " + alive );
+            console.log("Ping erantzuna: " + alive );
 
             if ( alive === true ) {
                 var index1 = $scope.arrDead.indexOf(ip);
@@ -35,21 +35,27 @@ angular.module('wol', ['ngRoute','ngResource'])
 
     };
 
+    $scope.wol = function (mac) {
+
+        $http.get("/wol/"+mac).then(function(resp, status) {
+            var resp = resp.data.wol;
+            console.log("Wol erantzuna: " + resp );
+
+            if ( resp === false ) {
+
+                alert('Errore bat gertatu da ;(');
+
+            }
+
+        });
+
+    };
+
     $scope.isInAliveArray =  function(ip){
         return $.inArray( ip, $scope.arrAlive) > -1;
     };
     $scope.isInDeadArray =  function(ip){
         return $.inArray( ip, $scope.arrDead) > -1;
     };
-
-
-    // pc.IPADDRESS == idSelectedVote
-
-    $scope.idSelectedVote = null;
-    $scope.setSelected = function(idSelectedVote) {
-        $scope.idSelectedVote = idSelectedVote;
-        console.log(idSelectedVote);
-    }
-
 
 });
