@@ -90,29 +90,17 @@ angular.module('wol', ['ngRoute', 'ngResource', 'datatables'])
             $scope.loading = true;
             angular.forEach($scope.pcs, function (value, key) {
 
-                if ( key === $scope.pcs.length-1 ) {
-                    $scope.ping(value.IPADDRESS, 1);
-                } else {
-                    $scope.ping(value.IPADDRESS);
+                if ( (value.IPADDRESS !=="undefined") && (value.IPADDRESS !=="")) {
+                    if ( key === $scope.pcs.length-1 ) {
+                        $scope.ping(value.IPADDRESS, 1);
+                    } else {
+                        $scope.ping(value.IPADDRESS);
+                    }
                 }
+
             });
         };
 
         $interval(eguneratu, 180000);
-
-
-
-        // var log = [];
-        // setInterval(function () {
-        //     $scope.loading = true;
-        //     angular.forEach($scope.pcs, function (value, key) {
-        //         $scope.ping(value.IPADDRESS)
-        //
-        //         if ( key === $scope.pcs.length-1 ) {
-        //             console.log("fin");
-        //             $scope.loading = false;
-        //         }
-        //     });
-        // }, 180000) // 3 minutu
 
     });
