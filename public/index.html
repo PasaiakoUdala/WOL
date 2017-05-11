@@ -17,37 +17,42 @@
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<style>
 		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
+		body 					{ padding-top:5px; }
 	</style>
 
 
-	<script src="js/libs/datatables/datatables.min.js"></script><!-- load angular -->
-	<script src="js/libs/datatables/dataTables.colReorder.min.js"></script><!-- load angular -->
-	<script src="js/libs/datatables/dataTables.select.min.js"></script><!-- load angular -->
-	<script src="js/libs/angular/angular.min.js"></script><!-- load angular -->
-	<script src="js/libs/angular/angular-route.min.js"></script><!-- load angular -->
-	<script src="js/libs/angular/angular-animate.min.js"></script><!-- load angular -->
-	<script src="js/libs/angular/angular-resource.min.js"></script><!-- load angular -->
-	<script src="js/core.js"></script> <!-- load our main application -->
+	<script src="js/libs/datatables/datatables.min.js"></script>
+	<script src="js/libs/datatables/dataTables.colReorder.min.js"></script>
+	<script src="js/libs/datatables/dataTables.select.min.js"></script>
+	<script src="js/libs/angular/angular.min.js"></script>
+	<script src="js/libs/angular/angular-route.min.js"></script>
+	<script src="js/libs/angular/angular-animate.min.js"></script>
+	<script src="js/libs/angular/angular-resource.min.js"></script>
+	<script src="js/libs/datatables/angular-datatables.min.js"></script>
+
+	<script src="js/core.js"></script>
 
 </head>
 <!-- SET THE CONTROLLER -->
 <body ng-controller="mainController">
 	<div class="container">
 
-		<div class="jumbotron text-center">
-			<h1>WOL <span class="label label-info">{{ pcs.length }}</span></h1>
+		<div class=" text-center">
+			<h1>WOL <span class="label label-info">{{ pcs.length }}</span>
+                    <span class="label label-success">{{ arrAlive.length }}</span>
+                    <span class="label label-danger">{{ arrDead.length }}</span>
+            </h1>
 		</div>
 
 		<div id="pc-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-
-				<p class="text-center" ng-show="loading">
-					<span class="fa fa-spinner fa-spin fa-3x"></span>
+			<div class="col-sm-4 col-sm-offset-4" ng-show="loading">
+				<p class="text-center">
+					<!--<span class="fa fa-spinner fa-spin fa-3x"></span>-->
+					<img src="img/house.gif" alt="working">
 				</p>
             </div>
 
-            <table id="pcsTable" class="table table-bordered table-responsive table-condensed table-hover">
+            <table datatable="ng" dt-options="dtOptions" id="pcsTable" class="table table-bordered table-responsive table-condensed table-hover">
                 <thead>
 					<th>Pc</th>
 					<th>User</th>
@@ -111,9 +116,7 @@
                 };
             })();
         }
-//        $(document).ready(function() {
-//            $('#pcsTable').DataTable();
-//        } );
+
     </script>
 </body>
 </html>
