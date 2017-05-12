@@ -15,6 +15,7 @@ Insatallation notes:
 ====================================================================
 
   - git clone this repo
+  - rename config.json.dist to config.json and configure parameters
   - npm install
   - install wmi-client ( We need winexe to run windows processes remotelly )
   - install and configure PM2 for node server
