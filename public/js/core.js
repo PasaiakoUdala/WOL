@@ -101,6 +101,6 @@ angular.module('wol', ['ngRoute', 'ngResource', 'datatables'])
             });
         };
 
-        $interval(eguneratu, 180000);
+        $interval(eguneratu, 600000);
 
     });
