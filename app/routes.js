@@ -1,11 +1,9 @@
 
 module.exports = function (app) {
 
-    // application -------------------------------------------------------------
     app.get('/', function (req, res) {
         res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
-
 
     app.get('/ping/:ip', function (req, res, next) {
         var ping = require('ping');
@@ -68,4 +66,46 @@ module.exports = function (app) {
         })
 
     });
+
+    app.get('/winexe/:cmd/:ip', function (req, res) {
+        var cmd = require('node-cmd');
+        var options = require('./options');
+
+
+        var passwd = options.storageConfig.WINEXEPASSWD;
+        var ip = req.params.ip;
+        var command = req.params.cmd;
+        var q ="";
+        var resp = {};
+        resp.result = -1;
+
+        if ( command === "session" ) {
+            q = 'winexe --user=admin --password=' + passwd + ' //' + ip + ' "reset session 0"';
+        } else if ( command === "reboot") {
+            q = 'winexe --user=admin --password=' + passwd + ' //' + ip + ' "shutdown -t 30 -r -f -c \"Ordenagailua-berrabiarazten\" " ';
+        } else if ( command === "shutdown") {
+                q = 'winexe --user=admin --password=' + passwd + ' //' + ip + ' "shutdown -t 30 -s -f -c \"Ordenagailua-itzaltzen.\" " ';
+        } else if ( command === "screensaver") {
+            q = 'winexe --user=admin --password=' + passwd + ' //' + ip + ' tasklist |grep scr -c';
+        }
+
+        console.log(q);
+
+        cmd.get(
+            q,
+            function(err, data, stderr){
+                resp.result = 1;
+                if (err) {
+                    resp.result = 0;
+                }
+                if ( command === "screensaver") {
+                    resp.result = data;
+                }
+            }
+        );
+
+        res.json(resp);
+
+    });
+
 };

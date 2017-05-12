@@ -2,5 +2,6 @@
   "HOST": "MYSQQL_HOST",
   "USER": "MYSQQL_USER",
   "PASSWD" : "MYSQQL_PASSWD",
-  "DB": "MYSQQL_DB"
+  "DB": "MYSQQL_DB",
+  "WINEXEPASSWD": "Windows administrator passwd"
 }

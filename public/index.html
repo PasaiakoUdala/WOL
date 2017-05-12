@@ -3,120 +3,137 @@
 <!-- ASSIGN OUR ANGULAR MODULE -->
 <html ng-app="wol">
 <head>
-	<!-- META -->
-	<meta charset="utf-8">
-	<meta lang="eu">
-	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta lang="eu">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-	<title>WOL/PING</title>
+    <title>WOL/PING</title>
 
-	<!-- SCROLLS -->
-	<link rel="stylesheet" href="css/bootstrap.min.css"><!-- load bootstrap -->
-	<link rel="stylesheet" href="css/datatables.min.css">
-	<link rel="stylesheet" href="css/datatables.bootstrap.min.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<style>
-		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:5px; }
-	</style>
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"><!-- load bootstrap -->
+    <link rel="stylesheet" href="css/datatables.min.css">
+    <link rel="stylesheet" href="css/datatables.bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+
+        body {
+            padding-top: 5px;
+        }
+    </style>
 
 
-	<script src="js/libs/datatables/datatables.min.js"></script>
-	<script src="js/libs/datatables/dataTables.colReorder.min.js"></script>
-	<script src="js/libs/datatables/dataTables.select.min.js"></script>
-	<script src="js/libs/angular/angular.min.js"></script>
-	<script src="js/libs/angular/angular-route.min.js"></script>
-	<script src="js/libs/angular/angular-animate.min.js"></script>
-	<script src="js/libs/angular/angular-resource.min.js"></script>
-	<script src="js/libs/datatables/angular-datatables.min.js"></script>
+    <script src="js/libs/datatables/datatables.min.js"></script>
+    <script src="js/libs/datatables/dataTables.colReorder.min.js"></script>
+    <script src="js/libs/datatables/dataTables.select.min.js"></script>
+    <script src="js/libs/angular/angular.min.js"></script>
+    <script src="js/libs/angular/angular-route.min.js"></script>
+    <script src="js/libs/angular/angular-animate.min.js"></script>
+    <script src="js/libs/angular/angular-resource.min.js"></script>
+    <script src="js/libs/datatables/angular-datatables.min.js"></script>
 
-	<script src="js/core.js"></script>
+    <script src="js/core.js"></script>
 
 </head>
 <!-- SET THE CONTROLLER -->
 <body ng-controller="mainController">
-	<div class="container">
+<div class="container">
 
-		<div class=" text-center">
-			<h1>WOL <span class="label label-info">{{ pcs.length }}</span>
-                    <span class="label label-success">{{ arrAlive.length }}</span>
-                    <span class="label label-danger">{{ arrDead.length }}</span>
-            </h1>
-		</div>
+    <div class=" text-center">
+        <h1>WOL <span class="label label-info">{{ pcs.length }}</span>
+            <span class="label label-success">{{ arrAlive.length }}</span>
+            <span class="label label-danger">{{ arrDead.length }}</span>
+        </h1>
+    </div>
 
-		<div id="pc-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4" ng-show="loading">
-				<p class="text-center">
-					<!--<span class="fa fa-spinner fa-spin fa-3x"></span>-->
-					<img src="img/house.gif" alt="working">
-				</p>
-            </div>
+    <div id="pc-list" class="row">
+        <div class="col-sm-4 col-sm-offset-4" ng-show="loading">
+            <p class="text-center">
+                <!--<span class="fa fa-spinner fa-spin fa-3x"></span>-->
+                <img src="img/house.gif" alt="working">
+            </p>
+        </div>
 
-            <table datatable="ng" dt-options="dtOptions" id="pcsTable" class="table table-bordered table-responsive table-condensed table-hover">
-                <thead>
-					<th>Pc</th>
-					<th>User</th>
-					<th>Luzapena</th>
-					<th>Saila</th>
-					<th>IP</th>
-					<th>Mac</th>
-					<th></th>
-				</thead>
-				<tbody>
+        <table datatable="ng" dt-options="dtOptions" id="pcsTable"
+               class="table table-bordered table-responsive table-condensed table-hover">
+            <thead>
+            <th>Pc</th>
+            <th>User</th>
+            <th>Saila</th>
+            <th>IP</th>
+            <th>Mac</th>
+            <th></th>
+            </thead>
+            <tbody>
 
-				<tr ng-repeat="pc in pcs" ng-class="{ success : isInAliveArray(pc.IPADDRESS), danger: isInDeadArray(pc.IPADDRESS) }" data-ip="{{pc.IPADDRESS}}">
-					<td>{{ pc.NAME }}</td>
-					<td>{{ pc.USERID }}</td>
-					<td>{{ pc.luzapena }}</td>
-					<td>{{ pc.saila }}</td>
-					<td>{{ pc.IPADDRESS }}</td>
-					<td>{{ pc.MACADDR }}</td>
-					<td>
-						<div class="btn-group">
-							<button type="button" class="btn btn-default btn" ng-click="ping(pc.IPADDRESS);"><i class="fa fa-volume-control-phone"> Ping</i></button>
-							<button type="button" class="btn btn-default btn" ng-click="wol(pc.MACADDR);"><i class="fa fa-bell"> Wol</i></button>
-						</div>
-					</td>
-				</tr>
-				</tbody>
-            </table>
+            <tr ng-repeat="pc in pcs"
+                ng-class="{ success : isInAliveArray(pc.IPADDRESS), danger: isInDeadArray(pc.IPADDRESS) }"
+                data-ip="{{pc.IPADDRESS}}">
+                <td>{{ pc.NAME }}</td>
+                <td>{{ pc.USERID }}</td>
+                <td>{{ pc.Saila }}</td>
+                <td>{{ pc.IPADDRESS }}</td>
+                <td>{{ pc.MACADDR }}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn" ng-click="ping(pc.IPADDRESS);"><i
+                                class="fa fa-volume-control-phone"> Ping</i></button>
+                        <button type="button" class="btn btn-default btn" ng-click="wol(pc.MACADDR);"><i
+                                class="fa fa-bell"> Wol</i></button>
+                        <label class="btn btn-default btn" ng-show="isInSrcArray(pc.IPADDRESS)"><i
+                                class="fa fa-desktop"> Screensaver</i></label>
+                        <button type="button" class="btn btn-default btn" ng-show="isInWinArray(pc.IPADDRESS)"
+                                ng-click="logout(pc.IPADDRESS);"><i class="fa fa-sign-out"> Logout</i></button>
+                        <button type="button" class="btn btn-default btn" ng-show="isInWinArray(pc.IPADDRESS)"
+                                ng-click="reboot(pc.IPADDRESS);"><i class="fa fa-refresh"> Reboot</i></button>
+                        <button type="button" class="btn btn-default btn" ng-show="isInWinArray(pc.IPADDRESS)"
+                                ng-click="shutdown(pc.IPADDRESS);"><i class="fa fa-power-off"> Shutdown</i></button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
 
-		</div>
+    </div>
 
 
-		<div class="text-center text-muted">
-			<p><a href="http://www.pasaia.eus">Pasiako Udala</a>.</p>
-		</div>
+    <div class="text-center text-muted">
+        <p><a href="http://www.pasaia.eus">Pasiako Udala</a>.</p>
+    </div>
 
-	</div>
+</div>
 
-    <script>
-        if (typeof Object.create != 'function') {
-            Object.create = (function(undefined) {
-                var Temp = function() {};
-                return function (prototype, propertiesObject) {
-                    if(prototype !== Object(prototype)) {
-                        throw TypeError(
-                            'Argument must be an object, or null'
-                        );
-                    }
-                    Temp.prototype = prototype || {};
-                    var result = new Temp();
-                    Temp.prototype = null;
-                    if (propertiesObject !== undefined) {
-                        Object.defineProperties(result, propertiesObject);
-                    }
+<script>
+    if (typeof Object.create !== 'function') {
+        Object.create = (function (undefined) {
+            var Temp = function () {
+            };
+            return function (prototype, propertiesObject) {
+                if (prototype !== Object(prototype)) {
+                    throw TypeError(
+                        'Argument must be an object, or null'
+                    );
+                }
+                Temp.prototype = prototype || {};
+                var result = new Temp();
+                Temp.prototype = null;
+                if (propertiesObject !== undefined) {
+                    Object.defineProperties(result, propertiesObject);
+                }
 
-                    // to imitate the case of Object.create(null)
-                    if(prototype === null) {
-                        result.__proto__ = null;
-                    }
-                    return result;
-                };
-            })();
-        }
+                // to imitate the case of Object.create(null)
+                if (prototype === null) {
+                    result.__proto__ = null;
+                }
+                return result;
+            };
+        })();
+    }
 
-    </script>
+</script>
 </body>
 </html>
