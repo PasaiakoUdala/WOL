@@ -42,18 +42,22 @@ angular.module('wol', ['ngRoute', 'ngResource', 'datatables'])
                         $scope.arrAlive.push(ip);
                     }
 
-                    if ( os.indexOf("Microsoft") >= 0 ) { // windows da
-                        $scope.arrWin.push(ip);
 
-                        // begiratu ea Screensaver-en dagoen
-                        $http.get("/winexe/screensaver/" + ip).then(function (resp, status) {
-                            if ( resp.result === 1 ) {
-                                $scope.arrSrc.push(ip);
-                            } else {
-                                var index3 = $scope.arrSrc.indexOf(ip);
-                                $scope.arrSrc.splice(index3, 1);
-                            }
-                        });
+                    if ( os !== undefined ) {
+
+                        if ( os.indexOf("Microsoft") >= 0 ) { // windows da
+                            $scope.arrWin.push(ip);
+
+                            // begiratu ea Screensaver-en dagoen
+                            $http.get("/winexe/screensaver/" + ip).then(function (resp, status) {
+                                if ( resp.result === 1 ) {
+                                    $scope.arrSrc.push(ip);
+                                } else {
+                                    var index3 = $scope.arrSrc.indexOf(ip);
+                                    $scope.arrSrc.splice(index3, 1);
+                                }
+                            });
+                        }
                     }
 
 
