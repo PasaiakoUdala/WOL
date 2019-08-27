@@ -69,12 +69,12 @@
             </thead>
             <tbody>
 
-            <tr ng-repeat="pc in pcs"
+            <tr ng-repeat="pc in pcs" ng-if="pc.IPADDRESS"
                 ng-class="{ success : isInAliveArray(pc.IPADDRESS), danger: isInDeadArray(pc.IPADDRESS) }"
                 data-ip="{{pc.IPADDRESS}}">
-                <td>{{ pc.NAME }}</td>
+                <td><a href="http://172.28.64.26/ocsreports/index.php?function=computer&head=1&systemid={{ pc.HARDWARE_ID}}" target="_blank">{{ pc.NAME }}</a></td>
                 <td>{{ pc.USERID }}</td>
-                <td>{{ pc.Saila }}</td>
+                <td>{{ pc.fields_6 }}</td>
                 <td>{{ pc.IPADDRESS }}</td>
                 <td>{{ pc.MACADDR }}</td>
                 <td>

@@ -48,17 +48,29 @@ module.exports = function (app) {
             if (err) throw err;
         });
 
-        var sql ="SELECT * " +
-        "FROM hardware " +
-        "LEFT JOIN networks " +
-        "on hardware.ID=networks.HARDWARE_ID " +
-        "LEFT JOIN accountinfo " +
-        "on hardware.ID=accountinfo.HARDWARE_ID " +
-        "WHERE Tag NOT LIKE 'ZERBI%' " +
-        "AND Tag NOT LIKE 'BEREZIA' " +
-        "AND Tag NOT LIKE 'Kanpokoa' " +
-        "AND Tag NOT LIKE 'BIRTUALA' " +
-        "AND Tag NOT LIKE 'Baztertua'";
+        // var sql ="SELECT * " +
+        // "FROM hardware " +
+        // "LEFT JOIN networks " +
+        // "on hardware.ID=networks.HARDWARE_ID " +
+        // "LEFT JOIN accountinfo " +
+        // "on hardware.ID=accountinfo.HARDWARE_ID " +
+        // "WHERE Tag NOT LIKE 'ZERBI%' " +
+        // "AND Tag NOT LIKE 'BEREZIA' " +
+        // "AND Tag NOT LIKE 'Kanpokoa' " +
+        // "AND Tag NOT LIKE 'BIRTUALA' " +
+        // "AND Tag NOT LIKE 'Baztertua'";
+
+      var sql = "SELECT *\n" +
+        "        FROM hardware \n" +
+        "        LEFT JOIN networks \n" +
+        "        on hardware.ID=networks.HARDWARE_ID \n" +
+        "        LEFT JOIN accountinfo \n" +
+        "        on hardware.ID=accountinfo.HARDWARE_ID\n" +
+        "        WHERE fields_8 NOT LIKE 'ZERBI%' \n" +
+        "        AND fields_8 NOT LIKE 'BEREZIA' \n" +
+        "        AND fields_8 NOT LIKE 'Kanpokoa' \n" +
+        "        AND fields_8 NOT LIKE 'BIRTUALA' \n" +
+        "        AND fields_8 NOT LIKE 'Baztertua'";
 
         conn.query(sql,function (err, rows, fields) {
             if (err) throw err;
